@@ -1,20 +1,32 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Contador {
     public static void main(String[] args){
         var scanner = new Scanner(System.in);
 
-        System.out.println("Digite o valor do primeiro parâmetro: ");
-        int parameterOne = scanner.nextInt();
-        System.out.println("Digite o valor do segundo parâmetro: ");
-        int parameterTwo = scanner.nextInt();
+        while (true) {
         try {
-            contar(parameterOne, parameterTwo);
-        } catch (InvalidParameterException e) {
-            System.err.println("Erro: " + e.getMessage());
-        } finally {
-            scanner.close();
+                System.out.println("Digite o valor do primeiro parâmetro: ");
+                int parameterOne = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Digite o valor do segundo parâmetro: ");
+                int parameterTwo = scanner.nextInt();
+                scanner.nextLine();            
+                contar(parameterOne, parameterTwo);
+                break;
+            } catch (InvalidParameterException e) {
+                System.err.println("Erro: " + e.getMessage());
+                continue;
+            } catch (InputMismatchException e) {
+                System.err.println("Digite apenas números inteiros");
+                scanner.nextLine();
+                continue;
+            }
         }
+        scanner.close();
+        System.out.println("Prograna finalizado!!");
+
     }
 
     static void contar(int parameterOne, int parameterTwo){
